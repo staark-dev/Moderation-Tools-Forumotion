@@ -124,7 +124,8 @@ function initZModTools(config = zModConfig, messages = zModMessages) {
 
                     c++;
                 }
-                
+                console.log($content.get());
+                console.log("\n\n" + c);
                 editor.createDropDown(caller, "staff", $content.get(0));
             },
             txtExec: function() {
