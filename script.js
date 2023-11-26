@@ -8,14 +8,14 @@
  */
 
 
-const zModConfig = [{
+let zModConfig = [{
     icon: "https://i.servimg.com/u/f58/11/80/17/98/chat-110.png",
     loadCss: true, // true or false
     css_source: "https://cdn.rawgit.com/zeusmaximus/Moderation-tools-for-Forumotion/e46f560/style.css",
     fontAwesome: true // true or false
 }];
 
-const zModTabels = [{
+let zModTabels = [{
         type: "zalert",
         body_start: '[table class="zmod_box zalert"][tr][td style="padding-right: 10px;" width="60px;"][icon="fa fa-exclamation-circle"][/icon][div]',
         body_end: "[/div][/td][/tr][/table]\n\n"
@@ -38,7 +38,7 @@ const zModTabels = [{
     }
 ];
 
-const zModMessages = [{
+let zModMessages = [{
         name: "Alert example",
         message: '[b]Alert[/b] \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         group_id: 0,
@@ -66,7 +66,7 @@ const zModMessages = [{
     }
 ];
 
-const zModGroups = [{
+let zModGroups = [{
         id: 0,
         name: 'Administrators'
     }, {
@@ -75,7 +75,7 @@ const zModGroups = [{
     }
 ];
 
-function initZModTools(config? = zModConfig, messages? = zModMessages) {
+function initZModTools(config = zModConfig, messages = zModMessages) {
     const list = "";
 
     $('.zmod_box td').each(function() {
@@ -106,9 +106,9 @@ function initZModTools(config? = zModConfig, messages? = zModMessages) {
             var c = $('<ul class="mod_groups" id="mod_box_i" />'), i;
             
             for (i = 0; i < zModMessages.length; i++) {
-                $(`<li class='mod_editor_message group_${messages[i].group_id}' id='group_${i}_${messages[i].group_id}'>
-                        <a style='cursor: pointer'>${messages[i].name}</a>
-                    </li>\n`)
+                $(`<span>${zModGroups[messages[i].group_id].name} [${messages[i].group_id}]</span>` + `<li class='mod_editor_message group_${messages[i].group_id}' id='group_${i}_${messages[i].group_id}'>
+                    <a style='cursor: pointer'>${messages[i].name}</a>
+                </li>\n`)
                 .data('staff-list', zModTabels[i].body_start + zModMessages[i].message + zModTabels[i].body_end)
                 .click(function(e) {
                     callback($(this).data('staff-list'));
