@@ -85,12 +85,12 @@ function initZModTools(config = zModConfig, messages = zModMessages) {
 
     window.addEventListener("load", () => {
         if (zModConfig[0].loadCss === true)
-            document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />');
+            $('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />').append('head');
         
         if (zModConfig[0].loadCss === true)
-            document.write('<link rel="stylesheet" type="text/css" href="'+ zModConfig[0].css_source +'" />');
+            $('<link rel="stylesheet" type="text/css" href="'+ zModConfig[0].css_source +'" />').append('head');
         
-        document.write('<style type="text/css">.sceditor-button-staff div {background: url(' + zModConfig[0].icon + ') !important;}</style>')
+        $('<style type="text/css">.sceditor-button-staff div {background: url(' + zModConfig[0].icon + ') !important;}</style>').append('head');
         // Nothig for the moment
     });
 
@@ -134,7 +134,7 @@ function initZModTools(config = zModConfig, messages = zModMessages) {
         toolbar = toolbar.replace(/fahide/, 'fahide,staff');
     }
 
-    console.log("The script initialize succesfully");
+    console.log("The script initialize succesfully @latest");
 }
 
 initZModTools();
