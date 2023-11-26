@@ -135,4 +135,8 @@ function initZModTools(config = zModConfig, messages = zModMessages) {
         });
         toolbar = toolbar.replace(/fahide/, 'fahide,staff');
     }
+
+    console.log("The script initialize succesfully");
 }
+
+initZModTools();
