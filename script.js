@@ -128,8 +128,8 @@ function initZModTools(config = zModConfig, messages = zModMessages) {
                 editor.createDropDown(caller, "staff", $content.get(0));
             },
             txtExec: function() {
-                const textarea = fa_mentionner.textarea;
-                const selection = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+                //const textarea = fa_mentionner.textarea;
+                //const selection = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
             },
             tooltip: 'Moderations Tools'
         });
