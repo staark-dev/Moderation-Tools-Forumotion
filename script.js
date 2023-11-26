@@ -75,16 +75,6 @@ const zModGroups = [{
     }
 ];
 
-
-if (zModConfig[0].loadCss === true)
-    document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />');
-
-if (zModConfig[0].loadCss === true)
-    document.write('<link rel="stylesheet" type="text/css" href="'+ zModConfig[0].css_source +'" />');
-
-document.write('<style type="text/css">.sceditor-button-staff div {background: url(' + zModConfig[0].icon + ') !important;}</style>')
-
-
 function initZModTools(config = zModConfig, messages = zModMessages) {
     const list = "";
 
@@ -94,6 +84,13 @@ function initZModTools(config = zModConfig, messages = zModMessages) {
     });
 
     window.addEventListener("load", () => {
+        if (zModConfig[0].loadCss === true)
+            document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />');
+        
+        if (zModConfig[0].loadCss === true)
+            document.write('<link rel="stylesheet" type="text/css" href="'+ zModConfig[0].css_source +'" />');
+        
+        document.write('<style type="text/css">.sceditor-button-staff div {background: url(' + zModConfig[0].icon + ') !important;}</style>')
         // Nothig for the moment
     });
 
