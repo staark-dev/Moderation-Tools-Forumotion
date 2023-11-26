@@ -9,7 +9,7 @@
 
 
 const zModConfig = [{
-    icon: "https://i58.servimg.com/u/f58/11/80/17/98/chat-110.png",
+    icon: "https://i.servimg.com/u/f58/11/80/17/98/chat-110.png",
     loadCss: true, // true or false
     css_source: "https://cdn.rawgit.com/zeusmaximus/Moderation-tools-for-Forumotion/e46f560/style.css",
     fontAwesome: true // true or false
@@ -75,7 +75,7 @@ const zModGroups = [{
     }
 ];
 
-function initZModTools(config = zModConfig, messages = zModMessages) {
+function initZModTools(config? = zModConfig, messages? = zModMessages) {
     const list = "";
 
     $('.zmod_box td').each(function() {
@@ -99,42 +99,46 @@ function initZModTools(config = zModConfig, messages = zModMessages) {
      * @params null
      * @return button
      */
+    if (!$.sceditor) return;
 
-    if ($.sceditor) {
-        $.sceditor.command.set('staff', {
-            exec: function(caller) {
-                const editor = this,
-                    $content = $('<div />'),
-                    c = 0;
-
-                for (var i = 0; i < messages.length; i++) {
-                    $(`<li class='mod_editor_message group_${messages[i].group_id}' id='group_${i}_${messages[i].group_id}'>
+    $.sceditor.command.set('staff', {
+        createDropdown: function(editor, callback) {
+            var c = $('<ul class="mod_groups" id="mod_box_i" />'), i;
+            
+            for (i = 0; i < zModMessages.length; i++) {
+                $(`<li class='mod_editor_message group_${messages[i].group_id}' id='group_${i}_${messages[i].group_id}'>
                         <a style='cursor: pointer'>${messages[i].name}</a>
                     </li>\n`)
-                    .data('mod-list-tools', i)
-                    .click(function (e) {
-                        editor.execCommand("zmoodtools", "<h" + $(this).data('mod-list-tools') + ">");
-                        editor.closeDropDown(true);
+                .data('staff-list', zModTabels[i].body_start + zModMessages[i].message + zModTabels[i].body_end)
+                .click(function(e) {
+                    callback($(this).data('staff-list'));
+                    editor.closeDropDown(true);
 
-                        e.preventDefault();
-                    }).appendTo($content);
+                    e.preventDefault();
+                }).appendTo(c);
+            }
 
-                    c++;
-                }
-                console.log($content.get());
-                console.log("\n\n" + c);
-                editor.createDropDown(caller, "staff", $content.get(0));
-            },
-            txtExec: function() {
-                //const textarea = fa_mentionner.textarea;
-                //const selection = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
-            },
-            tooltip: 'Moderations Tools'
-        });
-        toolbar = toolbar.replace(/fahide/, 'fahide,staff');
-    }
-
+            return c;
+        },
+        exec: function(c) {
+            var e = this;
+            this.createDropDown(c, 'staff', $.sceditor.command.get('staff').createDropdown(e, function(I) {
+                e.insert(I);
+            }));
+        },
+        txtExec: function(c) {
+            var e = this;
+            this.createDropDown(c, 'staff', $.sceditor.command.get('staff').createDropdown(e, function(I) {
+                e.insert(I);
+            }));
+        },
+        tooltip: "Staff Moderations Tools"
+    });
+    
+    toolbar = toolbar.replace(/strike/, 'strike,staff');
     console.log("The script initialize succesfully @latest");
 }
 
-initZModTools();
+$(function() {
+    initZModTools();
+});
